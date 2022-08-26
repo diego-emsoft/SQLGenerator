@@ -1,0 +1,32 @@
+unit SQLGen.Controller;
+
+interface
+
+uses
+{(*}
+  SQLGen.DTO.User,
+  SQLGen.DTO.Product,
+  SQLGen.DTO.sale,
+  SQLGen.DTO.itemsale,
+  SQLGen.Command.interfaces,
+  SQLGen.Controller.Interfaces;
+{*)}
+
+type
+  TSQLGenController = class(TInterfacedObject, iControllerSQLGen)
+  private
+    FUser: TUser;
+    FProduct: TProduct;
+    FSale: TSale;
+    FItemSale: TITEMSALE;
+  public
+    function User: iCommand<TUser>;
+    function Product: iCommand<TProduct>;
+    function Sale: iCommand<TSale>;
+    function ItemSale: iCommand<TITEMSALE>;
+  end;
+
+implementation
+
+end.
+

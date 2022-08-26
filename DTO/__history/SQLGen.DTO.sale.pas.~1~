@@ -1,0 +1,172 @@
+unit SQLGEN.DTO.USER;
+
+interface 
+
+type
+  TUSER = class
+  private
+    FID: integer;
+    FNAME: string;
+    FBORN: tdate;
+    procedure SetID(const aValue: integer);
+    procedure SetNAME(const aValue: string);
+    procedure SetBORN(const aValue: tdate);
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property ID: integer read FID write SetID;
+    property NAME: string read FNAME write SetNAME;
+    property BORN: tdate read FBORN write SetBORN;
+  end;
+
+implementation
+
+{  TUSER  }
+
+constructor TUSER.Create;
+begin
+
+end;
+
+destructor TUSER.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TUSER.SetID(const aValue: integer);
+begin
+  FID := aValue;
+end;
+
+procedure TUSER.SetNAME(const aValue: string);
+begin
+  FNAME := aValue;
+end;
+
+procedure TUSER.SetBORN(const aValue: tdate);
+begin
+  FBORN := aValue;
+end;
+
+end.
+unit SQLGEN.DTO.PRODUCT;
+
+interface 
+
+type
+  TPRODUCT = class
+  private
+    FID: integer;
+    FNAME: string;
+    FPRICE: currency;
+    FQUANTITY: integer;
+    procedure SetID(const aValue: integer);
+    procedure SetNAME(const aValue: string);
+    procedure SetPRICE(const aValue: currency);
+    procedure SetQUANTITY(const aValue: integer);
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property ID: integer read FID write SetID;
+    property NAME: string read FNAME write SetNAME;
+    property PRICE: currency read FPRICE write SetPRICE;
+    property QUANTITY: integer read FQUANTITY write SetQUANTITY;
+  end;
+
+implementation
+
+{  TPRODUCT  }
+
+constructor TPRODUCT.Create;
+begin
+
+end;
+
+destructor TPRODUCT.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TPRODUCT.SetID(const aValue: integer);
+begin
+  FID := aValue;
+end;
+
+procedure TPRODUCT.SetNAME(const aValue: string);
+begin
+  FNAME := aValue;
+end;
+
+procedure TPRODUCT.SetPRICE(const aValue: currency);
+begin
+  FPRICE := aValue;
+end;
+
+procedure TPRODUCT.SetQUANTITY(const aValue: integer);
+begin
+  FQUANTITY := aValue;
+end;
+
+end.
+unit SQLGEN.DTO.SALE;
+
+interface 
+
+type
+  TSALE = class
+  private
+    FID: integer;
+    FUSER: tuser;
+    FTOTAL: currency;
+    FDTSALE: tdatetime;
+    procedure SetID(const aValue: integer);
+    procedure SetUSER(const aValue: tuser);
+    procedure SetTOTAL(const aValue: currency);
+    procedure SetDTSALE(const aValue: tdatetime);
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property ID: integer read FID write SetID;
+    property USER: tuser read FUSER write SetUSER;
+    property TOTAL: currency read FTOTAL write SetTOTAL;
+    property DTSALE: tdatetime read FDTSALE write SetDTSALE;
+  end;
+
+implementation
+
+{  TSALE  }
+
+constructor TSALE.Create;
+begin
+
+end;
+
+destructor TSALE.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TSALE.SetID(const aValue: integer);
+begin
+  FID := aValue;
+end;
+
+procedure TSALE.SetUSER(const aValue: tuser);
+begin
+  FUSER := aValue;
+end;
+
+procedure TSALE.SetTOTAL(const aValue: currency);
+begin
+  FTOTAL := aValue;
+end;
+
+procedure TSALE.SetDTSALE(const aValue: tdatetime);
+begin
+  FDTSALE := aValue;
+end;
+
+end.

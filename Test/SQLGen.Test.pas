@@ -1,0 +1,54 @@
+unit SQLGen.Test;
+
+interface
+
+uses
+  DUnitX.TestFramework, SQLGen.Controller, SQLGen.Controller.Interfaces,
+  SQLGen.DTO.Product, SQLGen.DTO.User, SQLGen.DTO.itemsale, SQLGen.DTO.sale,
+  System.SysUtils;
+
+type
+  [TestFixture]
+  TMyTestObject = class
+  private
+    FControlleEntity: iControllerSQLGen;
+    FUser: TUSER;
+  public
+    [Setup]
+    procedure Setup;
+    [TearDown]
+    procedure TearDown;
+
+    [Test]
+    procedure InsertTest;
+  end;
+
+implementation
+
+procedure TMyTestObject.Setup;
+begin
+  FUser := TUSER.Create;
+  FControlleEntity := TSQLGenController.New;
+end;
+
+procedure TMyTestObject.TearDown;
+begin
+  FUser.Free;
+end;
+
+procedure TMyTestObject.InsertTest;
+var
+  aSQL, lSQL: string;
+begin
+  FUser.NAME := 'Diego';
+  FUser.BORN := strToDate('03/03/1987');
+  aSQL := FControlleEntity.User.Insert(FUser);
+  lSQL := 'INSERT INTO USER (ID, NAME, BORN) VALUES (Null, ' + QuotedStr(FUser.NAME) + ', ' + QuotedStr(FormatDateTime('yyyy-mm-dd',FUser.BORN)) + ')';
+  Assert.AreEqual(aSQL, lSQL);
+end;
+
+initialization
+  TDUnitX.RegisterTestFixture(TMyTestObject);
+
+end.
+

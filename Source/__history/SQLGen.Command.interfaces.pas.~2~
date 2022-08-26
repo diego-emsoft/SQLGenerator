@@ -1,0 +1,18 @@
+unit SQLGen.Command.interfaces;
+
+interface
+
+type
+  ['{1B7141CF-669B-4822-8BD1-831D5E4DDA5A}']
+  iCommand<T: class> = interface
+    function Insert(aEntity: T): string;
+    function Update(aEntity: T): string;
+    function Select(aEntity: T): string;
+    function Delete(aEntity: T): string;
+    function Associations(aEntity: T): string;
+  end;
+
+implementation
+
+end.
+

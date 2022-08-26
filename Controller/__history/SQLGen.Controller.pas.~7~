@@ -1,0 +1,75 @@
+unit SQLGen.Controller;
+
+interface
+
+uses
+{(*}
+  SQLGen.DTO.User,
+  SQLGen.DTO.Product,
+  SQLGen.DTO.sale,
+  SQLGen.DTO.itemsale,
+  SQLGen.Command,
+  SQLGen.Command.interfaces,
+  SQLGen.Controller.Interfaces;
+{*)}
+
+type
+  TSQLGenController = class(TInterfacedObject, iControllerSQLGen)
+  private
+    FUser:  iCommand<TUser>;
+    FProduct: iCommand<TProduct>;
+    FSale: iCommand<TSale>;
+    FItemSale: iCommand<TITEMSALE>;
+  public
+    constructor Create;
+    destructor Destroy;override;
+    class function New: iControllerSQLGen;
+    function User: iCommand<TUser>;
+    function Product: iCommand<TProduct>;
+    function Sale: iCommand<TSale>;
+    function ItemSale: iCommand<TITEMSALE>;
+  end;
+
+implementation
+
+{ TSQLGenController }
+
+constructor TSQLGenController.Create;
+begin
+
+end;
+
+destructor TSQLGenController.Destroy;
+begin
+
+  inherited;
+end;
+
+function TSQLGenController.ItemSale: iCommand<TITEMSALE>;
+begin
+    if Assigned(FItemSale) then
+    FItemSale:= TCommand<TITEMSALE>.;
+end;
+
+class function TSQLGenController.New: iControllerSQLGen;
+begin
+
+end;
+
+function TSQLGenController.Product: iCommand<TProduct>;
+begin
+
+end;
+
+function TSQLGenController.Sale: iCommand<TSale>;
+begin
+
+end;
+
+function TSQLGenController.User: iCommand<TUser>;
+begin
+
+end;
+
+end.
+

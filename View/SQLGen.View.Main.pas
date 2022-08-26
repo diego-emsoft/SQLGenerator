@@ -1,0 +1,75 @@
+unit SQLGen.View.Main;
+
+interface
+
+uses
+{(*}
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  FMX.Memo.Types,
+  FMX.ScrollBox,
+  FMX.Memo,
+  SQLGen.Controller,
+  SQLGen.Controller.Interfaces,
+  SQLGen.DTO.Product,
+  SQLGen.DTO.User,
+  SQLGen.DTO.itemsale,
+  SQLGen.DTO.sale;
+{*)}
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    Memo1: TMemo;
+    procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    FControlleEntity: iControllerSQLGen;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.fmx}
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  aUser: TUSER;
+begin
+  try
+    aUser := TUSER.Create;
+    aUser.NAME := 'Diego';
+    aUser.BORN := StrToDate('03/03/1987');
+    Memo1.Lines.Add(FControlleEntity.User.Insert(aUser));
+  finally
+    FreeAndNil(aUser);
+  end;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  FControlleEntity := TSQLGenController.New;
+  Memo1.Text := '';
+  ReportMemoryLeaksOnShutdown := True;
+end;
+
+end.
+

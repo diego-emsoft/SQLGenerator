@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/03/29 13:23:42.000.413,=C:\Users\alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 09:41:44.860,=C:\Users\alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 10:07:14.825,C:\Projetos\SQLGenerator\View\SQLGen.View.Main.fmx=C:\Users\alex\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2022/08/26 10:07:14.825,C:\Projetos\SQLGenerator\View\SQLGen.View.Main.pas=C:\Users\alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 10:07:20.770,C:\Projetos\SQLGenerator\SQLGen.dproj=C:\Users\alex\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2022/08/26 13:02:47.943,=C:\Projetos\SQLGenerator\DTO\SQLGen.DTO.itemsale.pas</Transaction>
+    <Transaction>2022/08/26 13:02:48.005,=C:\Projetos\SQLGenerator\DTO\SQLGen.DTO.Product.pas</Transaction>
+    <Transaction>2022/08/26 13:02:48.036,=C:\Projetos\SQLGenerator\DTO\SQLGen.DTO.sale.pas</Transaction>
+    <Transaction>2022/08/26 13:02:48.066,=C:\Projetos\SQLGenerator\DTO\SQLGen.DTO.User.pas</Transaction>
+    <Transaction>2022/08/26 13:08:00.665,=C:\Projetos\SQLGenerator\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 13:09:10.168,C:\Projetos\SQLGenerator\Source\SQLGen.Command.interfaces.pas=C:\Projetos\SQLGenerator\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 13:13:28.103,=C:\Projetos\SQLGenerator\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 13:13:40.874,C:\Projetos\SQLGenerator\Source\SQLGen.Command.pas=C:\Projetos\SQLGenerator\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 13:18:25.052,=C:\Projetos\SQLGenerator\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 13:19:00.537,C:\Projetos\SQLGenerator\Controller\SQLGen.Controller.pas=C:\Projetos\SQLGenerator\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 13:19:50.784,=C:\Projetos\SQLGenerator\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 13:20:04.004,C:\Projetos\SQLGenerator\Controller\SQLGen.Controller.Interfaces.pas=C:\Projetos\SQLGenerator\Unit1.pas</Transaction>
+  </Transactions>  <ActiveMobileDevice>   <NoProfile iOSSimulator="iPhone5"/>
+  </ActiveMobileDevice>
+</BorlandProject>

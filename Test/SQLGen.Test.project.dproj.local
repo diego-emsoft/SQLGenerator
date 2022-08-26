@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/03/29 13:23:42.000.413,=C:\Users\alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 10:44:01.251,=C:\Users\alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 10:46:08.085,C:\Projetos\SQLGenerator\Test\SQLGen.Test.pas=C:\Users\alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/26 10:46:25.956,C:\Projetos\SQLGenerator\Test\SQLGen.Test.project.dproj=C:\Users\alex\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
