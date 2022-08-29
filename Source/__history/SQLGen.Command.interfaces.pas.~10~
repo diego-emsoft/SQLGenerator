@@ -14,7 +14,7 @@ type
     function Find(aID: Integer): T; overload;
     function Delete(aEntity: T): T; overload;
     function Delete(aID: Integer): T; overload;
-    function Associations(aEntity: T): TObjectList<T>;
+    function Associations(aEntity: T): T;
     function Display:string;
   end;
 

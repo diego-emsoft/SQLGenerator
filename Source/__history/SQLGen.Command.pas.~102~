@@ -22,7 +22,7 @@ type
     function Find(aID: Integer): T; overload;
     function Delete(aEntity: T): T; overload;
     function Delete(aID: Integer): T; overload;
-    function Associations(aEntity: T): T;
+    function Associations(aEntity: T): TObjectList<T>;
     function Display: string;
   end;
 
@@ -31,9 +31,52 @@ implementation
 { TCommand<T> }
 
 { TODO 6 -cCREATE -oDiego: Find with associations SQL}
-function TCommand<T>.Associations(aEntity: T): T;
+function TCommand<T>.Associations(aEntity: T): TObjectList<T>;
+var
+  aContexto: TRttiContext;
+  aTipo, aSubTipo: TRttiType;
+  aField, aSubField: TRttiField;
+  aTableName: string;
 begin
-  Result := FEntity;
+  aContexto := TRttiContext.Create;
+  try
+    aTipo := aContexto.GetType(aEntity.ClassInfo);
+
+    aTableName := aTipo.Name;
+
+    aTableName := Copy(aTableName, Pos('T', aTableName) + 1, Length(aTableName));
+
+    FDisplay := 'SELECT ';
+
+    for aField in aTipo.GetFields do
+    begin
+      FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + ', ';
+
+      if aField.GetValue(Pointer(aEntity)).IsObject then
+      begin
+
+        aTableName := aField.GetValue(Pointer(aEntity)).AsClass.ClassName;
+
+        aSubTipo := aContexto.GetType(aField.FieldType.ClassInfo);
+
+        aTableName := aSubTipo.Name;
+//        QuotedStr(aField.GetValue(Pointer(aEntity)).ToString)
+
+//        for aSubField in aSubTipo.GetFields do
+//        begin
+//           FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + ', ';
+//        end;
+      end;
+    end;
+
+    FDisplay := Copy(FDisplay, 0, Length(FDisplay) - 2);
+
+    FDisplay := FDisplay + ' FROM ' + aTableName;
+
+    Result := FListEntity;
+  finally
+    aContexto.Free;
+  end;
 end;
 
 constructor TCommand<T>.Create;
@@ -52,7 +95,7 @@ var
 begin
   aContexto := TRttiContext.Create;
   try
-    aTipo := aContexto.GetType(FEntity.ClassInfo);
+    aTipo := aContexto.GetType(aEntity.ClassInfo);
 
     aTableName := aTipo.Name;
 
@@ -250,10 +293,60 @@ begin
   end;
 end;
 
-{ TODO 5 -cCREATE -oDiego: Create a UPDATE SQL}
+{ DONE 5 -cCREATE -oDiego: Create a UPDATE SQL}
 function TCommand<T>.Update(aEntity: T): T;
+var
+  aContexto: TRttiContext;
+  aTipo: TRttiType;
+  aField: TRttiField;
+  aTableName: string;
 begin
-  Result := aEntity;
+  aContexto := TRttiContext.Create;
+  try
+    aTipo := aContexto.GetType(aEntity.ClassInfo);
+
+    aTableName := aTipo.Name;
+
+    aTableName := Copy(aTableName, Pos('T', aTableName) + 1, Length(aTableName));
+
+    FDisplay := 'UPDATE ' + aTableName + ' SET ';
+
+    for aField in aTipo.GetFields do
+    begin
+      if aField.Name = 'FID' then
+      begin
+        Continue;
+      end;
+
+      if aField.FieldType.ToString.ToUpper = 'INTEGER' then
+        if StrToInt(aField.GetValue(Pointer(aEntity)).ToString) < 1 then
+          FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + '=' + 'Null, '
+        else
+          FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + '=' + aField.GetValue(Pointer(aEntity)).ToString + ', ';
+
+      if aField.FieldType.ToString.ToUpper = 'STRING' then
+        FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + '=' + QuotedStr(aField.GetValue(Pointer(aEntity)).ToString) + ', ';
+
+      if aField.FieldType.ToString.ToUpper = 'TDATE' then
+        FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + '=' + QuotedStr(FormatDateTime('yyyy-mm-dd', StrToDate(aField.GetValue(Pointer(aEntity)).ToString))) + ', ';
+//      FDisplay := FDisplay + aField.FieldType.ToString + ',';
+    end;
+
+    FDisplay := Copy(FDisplay, 0, Length(FDisplay) - 2);
+
+    for aField in aTipo.GetFields do
+    begin
+      if aField.Name = 'FID' then
+      begin
+        FDisplay := FDisplay + ' WHERE ID=' + aField.GetValue(Pointer(aEntity)).ToString;
+        Break;
+      end;
+    end;
+
+    Result := FEntity;
+  finally
+    aContexto.Free;
+  end;
 end;
 
 end.

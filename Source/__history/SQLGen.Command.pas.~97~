@@ -22,7 +22,7 @@ type
     function Find(aID: Integer): T; overload;
     function Delete(aEntity: T): T; overload;
     function Delete(aID: Integer): T; overload;
-    function Associations(aEntity: T): T;
+    function Associations(aEntity: T): TObjectList<T>;
     function Display: string;
   end;
 
@@ -31,9 +31,48 @@ implementation
 { TCommand<T> }
 
 { TODO 6 -cCREATE -oDiego: Find with associations SQL}
-function TCommand<T>.Associations(aEntity: T): T;
+function TCommand<T>.Associations(aEntity: T): TObjectList<T>;
+var
+  aContexto: TRttiContext;
+  aTipo, aSubTipo: TRttiType;
+  aField, aSubField: TRttiField;
+  aTableName: string;
 begin
-  Result := FEntity;
+  aContexto := TRttiContext.Create;
+  try
+    aTipo := aContexto.GetType(aEntity.ClassInfo);
+
+    aTableName := aTipo.Name;
+
+    aTableName := Copy(aTableName, Pos('T', aTableName) + 1, Length(aTableName));
+
+    FDisplay := 'SELECT ';
+
+    for aField in aTipo.GetFields do
+    begin
+      FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + ', ';
+
+      if aField.FieldType.ToString.ToUpper = 'TSALE' then
+      begin
+
+        aTableName := aField.GetValue(Pointer(aField.FieldType)).AsClass.ClassName;
+//        QuotedStr(aField.GetValue(Pointer(aEntity)).ToString)
+
+//        for aSubField in aSubTipo.GetFields do
+//        begin
+//           FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + ', ';
+//        end;
+      end;
+    end;
+
+    FDisplay := Copy(FDisplay, 0, Length(FDisplay) - 2);
+
+    FDisplay := FDisplay + ' FROM ' + aTableName;
+
+    Result := FListEntity;
+  finally
+    aContexto.Free;
+  end;
 end;
 
 constructor TCommand<T>.Create;
@@ -52,7 +91,7 @@ var
 begin
   aContexto := TRttiContext.Create;
   try
-    aTipo := aContexto.GetType(FEntity.ClassInfo);
+    aTipo := aContexto.GetType(aEntity.ClassInfo);
 
     aTableName := aTipo.Name;
 
@@ -250,7 +289,7 @@ begin
   end;
 end;
 
-{ TODO 5 -cCREATE -oDiego: Create a UPDATE SQL}
+{ DONE 5 -cCREATE -oDiego: Create a UPDATE SQL}
 function TCommand<T>.Update(aEntity: T): T;
 var
   aContexto: TRttiContext;
@@ -272,8 +311,9 @@ begin
     begin
       if aField.Name = 'FID' then
       begin
-        Break;
+        Continue;
       end;
+
       if aField.FieldType.ToString.ToUpper = 'INTEGER' then
         if StrToInt(aField.GetValue(Pointer(aEntity)).ToString) < 1 then
           FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + '=' + 'Null, '
