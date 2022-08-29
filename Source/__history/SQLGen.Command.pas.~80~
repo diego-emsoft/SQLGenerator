@@ -272,9 +272,8 @@ begin
     begin
       if aField.Name = 'FID' then
       begin
-        Continue;
+        Break;
       end;
-
       if aField.FieldType.ToString.ToUpper = 'INTEGER' then
         if StrToInt(aField.GetValue(Pointer(aEntity)).ToString) < 1 then
           FDisplay := FDisplay + Copy(aField.Name, Pos('F', aField.Name) + 1, Length(aField.Name)) + '=' + 'Null, '
@@ -290,15 +289,7 @@ begin
     end;
 
     FDisplay := Copy(FDisplay, 0, Length(FDisplay) - 2);
-
-    for aField in aTipo.GetFields do
-    begin
-      if aField.Name = 'FID' then
-      begin
-        FDisplay := FDisplay + ' WHERE ID=' + aField.GetValue(Pointer(aEntity)).ToString;
-        Break;
-      end;
-    end;
+    FDisplay := FDisplay + ')';
 
     Result := FEntity;
   finally

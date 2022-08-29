@@ -2,15 +2,12 @@ unit SQLGen.Command.interfaces;
 
 interface
 
-uses
-  System.Generics.Collections;
-
 type
   iCommand<T: class> = interface
     ['{1B7141CF-669B-4822-8BD1-831D5E4DDA5A}']
     function Insert(aEntity: T): T;
     function Update(aEntity: T): T;
-    function Find: TObjectList<T>; overload;
+    function Find: T; overload;
     function Find(aID: Integer): T; overload;
     function Delete(aEntity: T): T; overload;
     function Delete(aID: Integer): T; overload;

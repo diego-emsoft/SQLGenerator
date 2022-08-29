@@ -272,7 +272,7 @@ begin
     begin
       if aField.Name = 'FID' then
       begin
-        Continue;
+        Break;
       end;
 
       if aField.FieldType.ToString.ToUpper = 'INTEGER' then

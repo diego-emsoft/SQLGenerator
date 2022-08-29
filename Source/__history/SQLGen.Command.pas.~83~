@@ -270,10 +270,10 @@ begin
 
     for aField in aTipo.GetFields do
     begin
-      if aField.Name = 'FID' then
-      begin
-        Continue;
-      end;
+//      if aField.Name = 'FID' then
+//      begin
+//        Break;
+//      end;
 
       if aField.FieldType.ToString.ToUpper = 'INTEGER' then
         if StrToInt(aField.GetValue(Pointer(aEntity)).ToString) < 1 then
